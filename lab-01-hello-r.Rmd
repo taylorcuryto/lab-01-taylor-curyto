@@ -2,10 +2,17 @@
 title: "Lab 01 - Hello R!"
 author: "Taylor Curyto"
 output: 
-  tufte::tufte_html:
-    css: ../lab.css
-    tufte_variant: "envisioned"
-    highlight: pygments
+  pdf_document:
+    latex_engine: xelatex
+    fig_width: 5
+    fig_height: 5
+  #tufte::tufte_html:
+    #css: ../lab.css
+    #tufte_variant: "envisioned"
+    #highlight: pygments
+  html_document: 
+    fig_width: 5
+    theme: readable
 link-citations: true
 ---
 
@@ -226,6 +233,8 @@ This command must be ran in the Console.
 
 1.  Based on the help file, how many rows and how many columns does the `datasaurus_dozen` file have? What are the variables included in the data frame? Add your responses to your lab report.
 
+There are 1846 rows and 3 variables: **datasat**, **x**, and **y**.
+
 Let's take a look at what these datasets are.
 To do so we can make a *frequency table* of the dataset variable:
 
@@ -299,13 +308,47 @@ dino_data %>%
   summarize(r = cor(x, y))
 ```
 
+The correlation coeficient between x and y is -0.0645.
+
 🧶 ✅ ⬆️ *Knit, commit, and push your changes to GitHub with the commit message "Added answer for Ex 2". Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
 3.  Plot `y` vs. `x` for the `star` dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between `x` and `y` for this dataset. How does this value compare to the `r` of `dino`?
 
+```{r}
+star_data <- datasaurus_dozen %>%
+  filter(dataset == "star")
+```
+
+```{r fig.fullwidth=TRUE}
+ggplot(data = star_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+```
+
+```{r}
+star_data %>%
+  summarize(r = cor(x, y))
+```
+The correlation coefficients between x and y of the dino graph and star graph are very similar values. They are both negative values around -0.06. 
+
 🧶 ✅ ⬆️ *This is another good place to pause, knit, commit changes with the commit message "Added answer for Ex 3", and push. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
 4.  Plot `y` vs. `x` for the `circle` dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between `x` and `y` for this dataset. How does this value compare to the `r` of `dino`?
+
+```{r}
+circle_data <- datasaurus_dozen %>%
+  filter(dataset == "circle")
+```
+
+```{r fig.fullwidth=TRUE}
+ggplot(data = circle_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+```
+
+```{r}
+circle_data %>%
+  summarize(r = cor(x, y))
+```
+The correlation coefficients between x and y of the dino graph and circle graph are very similar values. They are both negative values around -0.06. 
 
 🧶 ✅ ⬆️ *You should pause again, commit changes with the commit message "Added answer for Ex 4", and push. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
